@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.AlarmMapper">
+    <insert id="insert">
+        insert into BINZARI_ALARM(ALARM_NUMBER, USER_NUMBER, RESERVATION_NUMBER, ALARM_CONTENT, ALARM_DATE, ALARM_UPDATE_DATE, ALARM_STATE)
+        VALUES(SEQ_ALARM.NEXTVAL, #{userNumber}, #{reservationNumber}, #{alarmContent}, SYSDATE, SYSDATE, 0)
+    </insert>
+
+    <select id="select" resultType="alarmVO">
+        SELECT *
+        FROM BINZARI_ALARM
+        WHERE ALARM_NUMBER = #{alarmNumber}
+    </select>
+    <select id="selectAll" resultType="alarmVO">
+        SELECT *
+        FROM BINZARI_ALARM
+        WHERE USER_NUMBER = #{userNumber}
+        ORDER BY ALARM_UPDATE_DATE DESC
+    </select>
+    <select id="selectAllByAdmin" resultType="alarmVO">
+        SELECT *
+        FROM BINZARI_ALARM
+        ORDER BY ALARM_NUMBER DESC
+    </select>
+
+
+    <update id="update">
+        UPDATE BINZARI_ALARM
+        SET ALARM_CONTENT = #{alarmContent}, ALARM_UPDATE_DATE = SYSDATE, ALARM_STATE = #{alarmState}
+        WHERE ALARM_NUMBER = #{alarmNumber}
+    </update>
+    <update id="updateState">
+        UPDATE BINZARI_ALARM
+        SET ALARM_STATE = #{alarmState}
+        WHERE ALARM_NUMBER = #{alarmNumber}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM BINZARI_ALARM
+        WHERE ALARM_NUMBER = #{alarmNumber}
+    </delete>
+
+    <select id="notReadTotal" resultType="int">
+        SELECT COUNT(*)
+        FROM BINZARI_ALARM
+        WHERE USER_NUMBER = #{userNumber} AND ALARM_STATE = 0
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+

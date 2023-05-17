@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.UserMapper">
+    <insert id="insertUser">
+        insert into BINZARI_USER(USER_NUMBER, USER_NAME, USER_PHONENUM)
+        VALUES(SEQ_USER.NEXTVAL, #{userName}, #{userPhonenum})
+    </insert>
+<!--    <insert id="insertUser">-->
+<!--        insert into BINZARI_USER(USER_NUMBER, USER_TYPE, USER_EMAIL, USER_PASSWORD, USER_NAME, USER_PHONENUM, USER_STATE, USER_NICKNAME)-->
+<!--        VALUES(SEQ_USER.NEXTVAL, #{userType}, #{userEmail}, #{userPassword}, #{userName}, #{userPhonenum}, '정상', #{userName})-->
+<!--    </insert>-->
+
+    <select id="selectUser" resultType="UserVO">
+        SELECT *
+        FROM BINZARI_USER
+        WHERE USER_EMAIL = #{userEmail}
+    </select>
+
+    <update id="updateUser">
+        UPDATE BINZARI_USER
+        SET USER_NICKNAME = #{userNickname}, USER_PASSWORD = #{userPassword}, USER_PHONENUM = #{userPhonenum}, USER_STATE = #{userState}
+        WHERE USER_EMAIL = #{userEmail}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM BINZARI_USER
+        WHERE USER_EMAIL = #{userEmail}
+    </delete>
+
+    <!--admin-->
+    <select id="selectAllUserNumber" resultType="UserVO">
+        SELECT USER_NUMBER
+        FROM BINZARI_USER
+        ORDER BY USER_NUMBER
+    </select>
+
+    <!--with paging-->
+    <select id="selectAllUser" resultType="UserVO">
+        SELECT USER_NUMBER, USER_TYPE, USER_EMAIL, USER_PASSWORD, USER_NAME, USER_PHONENUM, USER_STATE, USER_NICKNAME
+        FROM
+        (
+            SELECT ROWNUM R, USER_NUMBER, USER_TYPE, USER_EMAIL, USER_PASSWORD, USER_NAME, USER_PHONENUM, USER_STATE, USER_NICKNAME
+            FROM
+            (
+                SELECT USER_NUMBER, USER_TYPE, USER_EMAIL, USER_PASSWORD, USER_NAME, USER_PHONENUM, USER_STATE, USER_NICKNAME
+                FROM BINZARI_USER B
+                ORDER BY USER_NUMBER
+            ) D2
+            <![CDATA[
+            WHERE ROWNUM <= #{page} * #{amount}
+        ) WHERE R > (#{page} - 1) * #{amount}
+        ]]>
+    </select>
+
+    <!-- 유저 전체 개수-->
+    <select id="getTotal" resultType="_int">
+        SELECT COUNT(USER_NUMBER) FROM BINZARI_USER
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+

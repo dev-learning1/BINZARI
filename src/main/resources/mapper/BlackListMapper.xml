@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.BlackListMapper">
+    <insert id="insert">
+        insert into BINZARI_BLACKLIST(BLACKLIST_NUMBER, USER_NUMBER, BLACKLIST_USER_NUMBER, BLACKLIST_REASON, BLACKLIST_REGISTER_DATE, BLACKLIST_UPDATE_DATE, BLACKLIST_TYPE)
+        VALUES(SEQ_BLACKLIST.NEXTVAL, #{userNumber}, #{blacklistUserNumber}, #{blacklistReason}, SYSDATE, SYSDATE, #{blacklistType})
+    </insert>
+
+    <select id="select" resultType="UserBlackListVO">
+        SELECT BLACKLIST_NUMBER, USER_NUMBER, BLACKLIST_USER_NUMBER, BLACKLIST_REASON, BLACKLIST_REGISTER_DATE, BLACKLIST_UPDATE_DATE, BLACKLIST_TYPE
+        FROM BINZARI_BLACKLIST
+        WHERE BLACKLIST_NUMBER = #{blacklistNumber}
+    </select>
+    <select id="selectAll" resultType="UserBlackListVO">
+        SELECT BLACKLIST_NUMBER, USER_NUMBER, BLACKLIST_USER_NUMBER, BLACKLIST_REASON, BLACKLIST_REGISTER_DATE, BLACKLIST_UPDATE_DATE, BLACKLIST_TYPE
+        FROM BINZARI_BLACKLIST
+        WHERE USER_NUMBER = #{userNumber}
+        ORDER BY BLACKLIST_UPDATE_DATE DESC
+    </select>
+
+    <update id="update">
+        UPDATE BINZARI_BLACKLIST
+        SET BLACKLIST_REASON = #{blacklistReason}, BLACKLIST_UPDATE_DATE = SYSDATE
+        WHERE BLACKLIST_NUMBER = #{blacklistNumber}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM BINZARI_BLACKLIST
+        WHERE BLACKLIST_NUMBER = #{blacklistNumber}
+    </delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+

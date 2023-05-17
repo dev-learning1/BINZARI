@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.CheckNoticeMapper">
+    <insert id="insert">
+        insert into BINZARI_CHECK_NOTICE(CHECK_NOTICE_NUMBER, NOTICE_NUMBER, USER_NUMBER, CHECK_NOTICE_DATE, CHECK_NOTICE_UPDATE_DATE, CHECK_NOTICE_STATE)
+        VALUES(SEQ_CHECK_NOTICE.NEXTVAL, #{noticeNumber}, #{userNumber}, SYSDATE, SYSDATE, #{checkNoticeState})
+    </insert>
+
+    <select id="select" resultType="checkNoticeVO">
+        SELECT CHECK_NOTICE_NUMBER, NOTICE_NUMBER, USER_NUMBER, CHECK_NOTICE_DATE, CHECK_NOTICE_UPDATE_DATE, CHECK_NOTICE_STATE
+        FROM BINZARI_CHECK_NOTICE
+        WHERE USER_NUMBER = #{userNumber} and NOTICE_NUMBER = #{noticeNumber}
+    </select>
+    <select id="selectAll" resultType="checkNoticeVO">
+        SELECT CHECK_NOTICE_NUMBER, NOTICE_NUMBER, USER_NUMBER, CHECK_NOTICE_DATE, CHECK_NOTICE_UPDATE_DATE, CHECK_NOTICE_STATE
+        FROM BINZARI_CHECK_NOTICE
+        WHERE USER_NUMBER = #{userNumber}
+        ORDER BY CHECK_NOTICE_NUMBER DESC
+    </select>
+
+    <select id="selectAllUserWithNotice" resultType="checkNoticeVO">
+        SELECT CHECK_NOTICE_NUMBER, NOTICE_NUMBER, USER_NUMBER, CHECK_NOTICE_DATE, CHECK_NOTICE_UPDATE_DATE, CHECK_NOTICE_STATE
+        FROM BINZARI_CHECK_NOTICE
+        WHERE NOTICE_NUMBER = #{noticeNumber}
+        ORDER BY CHECK_NOTICE_NUMBER
+    </select>
+
+    <update id="update">
+        UPDATE BINZARI_CHECK_NOTICE
+        SET CHECK_NOTICE_STATE = #{checkNoticeState}, CHECK_NOTICE_UPDATE_DATE = SYSDATE
+        WHERE CHECK_NOTICE_NUMBER = #{checkNoticeNumber}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM BINZARI_CHECK_NOTICE
+        WHERE CHECK_NOTICE_NUMBER = #{CHECK_NOTICE_NUMBER}
+    </delete>
+    <delete id="deleteAllUserWithNotice">
+        DELETE FROM BINZARI_CHECK_NOTICE
+        WHERE NOTICE_NUMBER = #{NOTICE_NUMBER}
+    </delete>
+
+    <select id="notReadTotal" resultType="int">
+        SELECT COUNT(*)
+        FROM BINZARI_CHECK_NOTICE
+        WHERE USER_NUMBER = #{userNumber} AND CHECK_NOTICE_STATE = 0
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+

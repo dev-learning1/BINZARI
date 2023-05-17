@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="false" />
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
+    <typeAliases>
+        <typeAlias type="com.example.app.domain.vo.AlarmVO" alias="alarmVO"/>
+        <typeAlias type="com.example.app.domain.vo.NoticeVO" alias="noticeVO"/>
+        <typeAlias type="com.example.app.domain.vo.CheckNoticeVO" alias="checkNoticeVO"/>
+        <typeAlias type="com.example.app.domain.vo.InterestVO" alias="interestVO"/>
+        <typeAlias type="com.example.app.domain.vo.ProductVO" alias="productVO"/>
+        <typeAlias type="com.example.app.domain.vo.ProductVO" alias="productVO"/>
+        <typeAlias type="com.example.app.domain.vo.ReservationVO" alias="reservationVO"/>
+        <typeAlias type="com.example.app.domain.vo.SeatVO" alias="seatVO"/>
+        <typeAlias type="com.example.app.domain.vo.StoreFileVO" alias="storeFileVO"/>
+        <typeAlias type="com.example.app.domain.vo.StoreVO" alias="storeVO"/>
+        <typeAlias type="com.example.app.domain.vo.BlackListVO" alias="userBlackListVO"/>
+        <typeAlias type="com.example.app.domain.vo.UserFileVO" alias="userFileVO"/>
+        <typeAlias type="com.example.app.domain.vo.UserVO" alias="userVO"/>
+        <typeAlias type="com.example.app.domain.vo.UserDTO" alias="userDTO"/>
+<!--        <typeAlias type="com.example.app.domain.vo.ReplyVO" alias="replyVO"/>-->
+<!--        <typeAlias type="com.example.app.domain.vo.ReplyDTO" alias="replyDTO"/>-->
+    </typeAliases>
+</configuration>

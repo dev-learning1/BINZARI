@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.UserFileMapper">
+    <insert id="insert">
+        INSERT INTO BINZARI_USER_FILE(USER_FILE_NUMBER, USER_FILE_NAME, USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_IMAGE_CHECK, USER_FILE_SIZE,
+        USER_NUMBER)
+        VALUES(SEQ_USER_FILE.NEXTVAL, #{userFileName}, #{userFileUploadPath}, #{userFileUuid}, #{userFileImageCheck}, #{userFileSize}, #{userNumber})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM BINZARI_USER_FILE
+        WHERE USER_NUMBER = #{userNumber}
+    </delete>
+
+    <select id="selectAll" resultType="userFileVO">
+        SELECT *
+        FROM
+        (
+            SELECT USER_FILE_NUMBER, USER_FILE_NAME, USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_IMAGE_CHECK, USER_FILE_SIZE, USER_NUMBER
+            FROM BINZARI_USER_FILE
+            WHERE USER_NUMBER = #{userNumber}
+            ORDER BY USER_FILE_NUMBER DESC
+        )
+        WHERE ROWNUM = 1
+    </select>
+
+    <select id="selectOld" resultType="userFileVO">
+        SELECT USER_FILE_NUMBER, USER_FILE_NAME, USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_IMAGE_CHECK, USER_FILE_SIZE, USER_NUMBER
+        FROM BINZARI_USER_FILE
+        WHERE USER_FILE_UPLOAD_PATH = TO_CHAR(CURRENT_DATE - 3, 'YYYY/MM/DD')
+    </select>
+</mapper>
